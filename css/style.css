@@ -1,0 +1,570 @@
+/**
+ * 颜色配置系统
+ * 
+ * 主题：中国红主题配色方案
+ * 
+ * 颜色变量说明：
+ * --primary-color: 主题色，用于重点突出的元素，如按钮、重要文字等
+ * --secondary-color: 次要主题色，用于辅助性突出的元素
+ * --accent-color: 强调色，用于需要特别突出的小面积元素
+ * --bg-color: 背景色，整体页面背景
+ * --text-primary: 主要文字颜色
+ * --text-secondary: 次要文字颜色，用于描述性文字
+ * --border-color: 边框颜色
+ * --card-shadow: 卡片阴影效果
+ */
+:root {
+    /* 中国红主题色系 */
+    --primary-color: #c62f2f;     /* 正红色：用于主要按钮、重要文字 */
+    --secondary-color: #e54545;   /* 浅红色：用于次要按钮、hover效果 */
+    --accent-color: #ff9c00;      /* 金黄色：用于强调、标记、提示 */
+    
+    /* 背景色系 */
+    --bg-color: #f8f8f8;          /* 浅灰背景：整体页面背景 */
+    --bg-white: #ffffff;          /* 纯白背景：卡片背景 */
+    --bg-hover: #fff8f8;          /* 浅红背景：hover状态 */
+    
+    /* 文字色系 */
+    --text-primary: #333333;      /* 主要文字：标题、重要内容 */
+    --text-secondary: #666666;    /* 次要文字：描述、说明文字 */
+    --text-light: #999999;        /* 浅色文字：次要信息 */
+    --text-white: #ffffff;        /* 白色文字：深色背景上的文字 */
+    
+    /* 边框与分割线 */
+    --border-color: #eaeaea;      /* 边框颜色：卡片、分割线 */
+    --border-hover: #ffcdd2;      /* 边框高亮：hover状态边框 */
+    
+    /* 阴影效果 */
+    --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --hover-shadow: 0 4px 12px rgba(198, 47, 47, 0.1);
+    
+    /* 渐变效果 */
+    --gradient-primary: linear-gradient(135deg, #c62f2f, #e54545);
+    --gradient-hover: linear-gradient(135deg, #e54545, #c62f2f);
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 100%;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.platform-tabs {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.98);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    margin: 0;
+    backdrop-filter: blur(8px);
+    box-shadow: var(--card-shadow);
+    z-index: 100;
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.tab-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+.tab-button.active {
+    background: var(--primary-color);
+    color: var(--text-white);
+    box-shadow: 0 2px 8px rgba(198, 47, 47, 0.25);
+}
+
+.accounts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    padding-top: var(--spacing-xs);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.accounts-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: var(--spacing-md);
+    box-shadow: var(--card-shadow);
+}
+
+.category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-sm);
+    padding-bottom: 0;
+}
+
+.category-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.category-title::before {
+    content: '';
+    width: 4px;
+    height: 18px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.account-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.account-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: var(--bg-white);
+    border-radius: 10px;
+    min-height: 76px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.account-item:last-child {
+    margin-bottom: 0;
+}
+
+.account-item:hover {
+    transform: translateX(4px);
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+    box-shadow: var(--hover-shadow);
+}
+
+.account-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    margin-right: var(--spacing-md);
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #fff;
+}
+
+.account-item:hover .account-logo {
+    transform: scale(1.05);
+}
+
+.account-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.account-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.account-desc {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    opacity: 0.9;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.account-platform {
+    padding: 6px 16px;
+    font-size: 14px;
+    color: var(--primary-color);
+    background: #fff;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    min-width: 54px;
+    text-align: center;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.account-item:hover .account-platform {
+    background: var(--primary-color);
+    color: var(--text-white);
+}
+
+.banner {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    margin-bottom: 0;
+    overflow: hidden;
+    background: var(--gradient-primary);
+}
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.6) contrast(1.1);
+    transform: scale(1.02);
+    transition: all 0.8s ease;
+}
+
+.banner:hover .banner-img {
+    transform: scale(1.06);
+    filter: brightness(0.5) contrast(1.2);
+}
+
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 var(--spacing-lg);
+    z-index: 3;
+}
+
+.banner-title {
+    color: var(--text-white);
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-md);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+    transition: all 0.4s ease;
+    opacity: 0.95;
+}
+
+.banner:hover .banner-title {
+    transform: translateY(-4px);
+    opacity: 1;
+}
+
+.banner-subtitle {
+    color: var(--text-white);
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 4px;
+    opacity: 0.8;
+    margin-top: var(--spacing-sm);
+    transform: translateY(0);
+    transition: all 0.4s ease 0.1s;
+}
+
+.banner:hover .banner-subtitle {
+    transform: translateY(-4px);
+    opacity: 0.9;
+}
+
+.banner-line {
+    width: 60px;
+    height: 3px;
+    background: var(--accent-color);
+    margin: var(--spacing-md) auto;
+    transform: scaleX(1);
+    transition: all 0.4s ease;
+}
+
+.banner:hover .banner-line {
+    transform: scaleX(1.2);
+}
+
+.banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(0, 0, 0, 0.6) 50%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.banner:hover::after {
+    opacity: 0.9;
+}
+
+.category-tabs {
+    position: relative;
+    background: #fff;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    overflow: hidden;
+    margin-bottom: var(--spacing-sm);
+}
+
+.category-tabs-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.category-button {
+    position: relative;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-right: var(--spacing-lg);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 最后一个按钮不需要右边距 */
+.category-button:last-child {
+    margin-right: 0;
+}
+
+.category-button::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 1px;
+}
+
+.category-button.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.category-button.active::after {
+    width: 24px;
+}
+
+/* 移动端适配 */
+@media (max-width: 480px) {
+    .accounts-grid {
+        padding-top: var(--spacing-xs);
+    }
+
+    .accounts-section {
+        padding: var(--spacing-sm);
+        border-radius: 12px;
+    }
+
+    .category-header {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .category-title {
+        font-size: 16px;
+    }
+
+    .account-item {
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-height: 68px;
+    }
+
+    .account-logo {
+        width: 46px;
+        height: 46px;
+    }
+
+    .account-name {
+        font-size: 15px;
+    }
+
+    .account-desc {
+        font-size: 12px;
+    }
+
+    .account-platform {
+        padding: 4px 12px;
+        font-size: 13px;
+        min-width: 48px;
+    }
+
+    .banner {
+        height: 200px;
+    }
+    
+    .banner-title {
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+    
+    .banner-subtitle {
+        font-size: 14px;
+        letter-spacing: 2px;
+    }
+    
+    .banner-line {
+        width: 40px;
+        height: 2px;
+        margin: var(--spacing-sm) auto;
+    }
+    
+    .platform-tabs {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .tab-button {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 14px;
+    }
+    
+    .category-tabs-container {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .category-button {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        margin-right: var(--spacing-sm);
+        font-size: 13px;
+    }
+    
+    .no-data {
+        padding: var(--spacing-md);
+        margin: var(--spacing-sm);
+        font-size: 13px;
+    }
+
+    .category-tabs {
+        margin-bottom: var(--spacing-xs);
+    }
+}
+
+/* 较小屏幕的额外优化 */
+@media (max-width: 360px) {
+    .account-logo {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .account-name {
+        font-size: 13px;
+    }
+    
+    .account-desc {
+        font-size: 11px;
+    }
+    
+    .account-platform {
+        padding: 2px var(--spacing-xs);
+        font-size: 10px;
+    }
+}
+
+/* 添加无数据状态样式 */
+.no-data {
+    text-align: center;
+    padding: 32px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    background: #fff;
+    border-radius: 12px;
+    margin: 16px;
+    border: 1px dashed var(--border-color);
+}
+
+/* 查看更多链接优化 */
+.more-link {
+    color: var(--primary-color);
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.more-link:hover {
+    color: var(--secondary-color);
+}
+
+.more-link::after {
+    content: '→';
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* 添加加载动画 */
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.loading-skeleton {
+    background: linear-gradient(90deg, 
+        var(--bg-color) 25%, 
+        #f0f0f0 50%, 
+        var(--bg-color) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+} 
