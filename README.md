@@ -2,7 +2,7 @@
 
 一个优雅的校园新媒体平台导航网站，帮助学生快速找到并关注各个学院和部门的官方社交媒体账号。
 
-![预览图](https://imgse.com/i/pEQ9Acq)
+[![预览图](https://s21.ax1x.com/2025/02/19/pEQ9Acq.png)](https://imgse.com/i/pEQ9Acq)
 
 ## 功能特点
 
@@ -14,6 +14,7 @@
 - 🛠 易于配置：采用 JS 配置文件，方便维护和更新
 
 ## 项目结构 
+
 ├── index.html # 主页面
 ├── css/
 │ └── style.css # 样式文件
