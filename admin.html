@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新媒体平台管理后台</title>
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- 头部 -->
+        <header class="admin-header">
+            <h1>📱 新媒体平台管理后台</h1>
+            <p class="subtitle">可视化配置管理 · 支持 Excel 导入导出</p>
+        </header>
+
+        <!-- 工具栏 -->
+        <div class="toolbar">
+            <div class="toolbar-left">
+                <button class="btn btn-primary" onclick="window.open('index.html', '_blank')">
+                    🔍 预览网站
+                </button>
+            </div>
+            <div class="toolbar-right">
+                <button class="btn btn-success" onclick="importExcel()">
+                    📥 导入 Excel
+                </button>
+                <button class="btn btn-info" onclick="exportExcel()">
+                    📤 导出 Excel
+                </button>
+                <button class="btn btn-warning" onclick="generateConfig()">
+                    💾 生成配置文件
+                </button>
+            </div>
+            <input type="file" id="excelFileInput" accept=".xlsx,.xls" style="display:none">
+        </div>
+
+        <!-- 主要内容区 -->
+        <div class="main-content">
+            <!-- 左侧导航 -->
+            <nav class="sidebar">
+                <div class="nav-item active" data-tab="platforms" onclick="switchTab('platforms')">
+                    🌐 平台管理
+                </div>
+                <div class="nav-item" data-tab="categories" onclick="switchTab('categories')">
+                    🏢 分类管理
+                </div>
+                <div class="nav-item" data-tab="accounts" onclick="switchTab('accounts')">
+                    👥 账号管理
+                </div>
+                <div class="nav-item" data-tab="import-export" onclick="switchTab('import-export')">
+                    📊 批量导入导出
+                </div>
+            </nav>
+
+            <!-- 右侧内容区 -->
+            <div class="content-area">
+                <!-- 平台管理 -->
+                <div id="platforms-tab" class="tab-content active">
+                    <div class="section-header">
+                        <h2>平台管理</h2>
+                        <button class="btn btn-primary btn-sm" onclick="showAddPlatformModal()">
+                            ➕ 添加平台
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th width="50">序号</th>
+                                    <th>平台标识</th>
+                                    <th>平台名称</th>
+                                    <th width="150">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="platformsTableBody">
+                                <!-- 动态生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 分类管理 -->
+                <div id="categories-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>学院分类管理</h2>
+                        <button class="btn btn-primary btn-sm" onclick="showAddCategoryModal()">
+                            ➕ 添加分类
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th width="50">序号</th>
+                                    <th>分类标识</th>
+                                    <th>分类名称</th>
+                                    <th width="150">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoriesTableBody">
+                                <!-- 动态生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 账号管理 -->
+                <div id="accounts-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>账号管理</h2>
+                        <button class="btn btn-primary btn-sm" onclick="showAddAccountModal()">
+                            ➕ 添加账号
+                        </button>
+                    </div>
+                    
+                    <div class="filter-bar">
+                        <select id="filterPlatform" onchange="filterAccounts()">
+                            <option value="">全部平台</option>
+                        </select>
+                        <select id="filterCategory" onchange="filterAccounts()">
+                            <option value="">全部分类</option>
+                        </select>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th width="50">序号</th>
+                                    <th>所属平台</th>
+                                    <th>所属分类</th>
+                                    <th>账号名称</th>
+                                    <th>账号简介</th>
+                                    <th>头像</th>
+                                    <th>链接</th>
+                                    <th width="150">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accountsTableBody">
+                                <!-- 动态生成 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Excel 导入导出 -->
+                <div id="import-export-tab" class="tab-content">
+                    <div class="section-header">
+                        <h2>批量导入导出</h2>
+                    </div>
+                    
+                    <div class="help-section">
+                        <h3>📋 使用说明</h3>
+                        <div class="help-content">
+                            <h4>方式一：Excel 编辑</h4>
+                            <ol>
+                                <li>点击【导出 Excel】按钮，下载当前配置</li>
+                                <li>使用 Excel 或 WPS 打开文件进行编辑</li>
+                                <li>编辑完成后，点击【导入 Excel】上传</li>
+                                <li>系统会自动验证并更新数据</li>
+                            </ol>
+
+                            <h4>方式二：直接编辑</h4>
+                            <ol>
+                                <li>在【平台管理】【分类管理】【账号管理】中直接添加/编辑</li>
+                                <li>编辑完成后，点击【生成配置文件】</li>
+                                <li>下载生成的 config.js 文件</li>
+                                <li>替换项目中的 js/config.js 文件即可</li>
+                            </ol>
+
+                            <h4>📝 Excel 表格格式说明</h4>
+                            <div class="excel-format">
+                                <p><strong>Sheet 1 - 平台配置：</strong></p>
+                                <table class="example-table">
+                                    <tr>
+                                        <th>平台标识</th>
+                                        <th>平台名称</th>
+                                    </tr>
+                                    <tr>
+                                        <td>wechat</td>
+                                        <td>公众号</td>
+                                    </tr>
+                                </table>
+
+                                <p><strong>Sheet 2 - 分类配置：</strong></p>
+                                <table class="example-table">
+                                    <tr>
+                                        <th>分类标识</th>
+                                        <th>分类名称</th>
+                                    </tr>
+                                    <tr>
+                                        <td>xiaoji</td>
+                                        <td>校级媒体</td>
+                                    </tr>
+                                </table>
+
+                                <p><strong>Sheet 3 - 账号配置：</strong></p>
+                                <table class="example-table">
+                                    <tr>
+                                        <th>平台标识</th>
+                                        <th>分类标识</th>
+                                        <th>账号名称</th>
+                                        <th>头像URL</th>
+                                        <th>链接URL</th>
+                                        <th>简介</th>
+                                    </tr>
+                                    <tr>
+                                        <td>wechat</td>
+                                        <td>xiaoji</td>
+                                        <td>校团委</td>
+                                        <td>https://...</td>
+                                        <td>https://...</td>
+                                        <td>发布校园活动</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div class="tips">
+                                <h4>⚠️ 注意事项</h4>
+                                <ul>
+                                    <li>标识只能包含字母、数字和下划线</li>
+                                    <li>标识必须唯一，不能重复</li>
+                                    <li>URL 必须以 http:// 或 https:// 开头</li>
+                                    <li>头像图片建议尺寸：200x200 像素</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框 - 添加/编辑平台 -->
+    <div id="platformModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="platformModalTitle">添加平台</h3>
+                <span class="close" onclick="closeModal('platformModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="platformForm">
+                    <input type="hidden" id="platformIndex">
+                    <div class="form-group">
+                        <label>平台标识 <span class="required">*</span></label>
+                        <input type="text" id="platformId" placeholder="例如: wechat (只能包含字母、数字、下划线)" required>
+                        <small>用于系统识别，添加后不建议修改</small>
+                    </div>
+                    <div class="form-group">
+                        <label>平台名称 <span class="required">*</span></label>
+                        <input type="text" id="platformName" placeholder="例如: 微信公众号" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('platformModal')">取消</button>
+                <button class="btn btn-primary" onclick="savePlatform()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框 - 添加/编辑分类 -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="categoryModalTitle">添加分类</h3>
+                <span class="close" onclick="closeModal('categoryModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="categoryForm">
+                    <input type="hidden" id="categoryIndex">
+                    <div class="form-group">
+                        <label>分类标识 <span class="required">*</span></label>
+                        <input type="text" id="categoryId" placeholder="例如: xiaoji (只能包含字母、数字、下划线)" required>
+                        <small>用于系统识别，添加后不建议修改</small>
+                    </div>
+                    <div class="form-group">
+                        <label>分类名称 <span class="required">*</span></label>
+                        <input type="text" id="categoryName" placeholder="例如: 校级媒体" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('categoryModal')">取消</button>
+                <button class="btn btn-primary" onclick="saveCategory()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框 - 添加/编辑账号 -->
+    <div id="accountModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 id="accountModalTitle">添加账号</h3>
+                <span class="close" onclick="closeModal('accountModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="accountForm">
+                    <input type="hidden" id="accountPlatformOld">
+                    <input type="hidden" id="accountCategoryOld">
+                    <input type="hidden" id="accountIndex">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>所属平台 <span class="required">*</span></label>
+                            <select id="accountPlatform" required>
+                                <option value="">请选择平台</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>所属分类 <span class="required">*</span></label>
+                            <select id="accountCategory" required>
+                                <option value="">请选择分类</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>账号名称 <span class="required">*</span></label>
+                        <input type="text" id="accountName" placeholder="例如: 校团委" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>账号简介</label>
+                        <textarea id="accountDesc" placeholder="例如: 发布校园活动、青年资讯" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>头像 URL <span class="required">*</span></label>
+                        <input type="url" id="accountAvatar" placeholder="https://example.com/avatar.png" required>
+                        <small>建议尺寸: 200x200 像素，支持 PNG/JPG 格式</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>链接 URL <span class="required">*</span></label>
+                        <input type="url" id="accountLink" placeholder="https://example.com/account" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('accountModal')">取消</button>
+                <button class="btn btn-primary" onclick="saveAccount()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载现有配置 -->
+    <script src="js/config.js"></script>
+    <!-- SheetJS 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- 管理界面脚本 -->
+    <script src="js/admin.js"></script>
+</body>
+</html>
+
