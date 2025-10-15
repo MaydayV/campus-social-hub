@@ -2,7 +2,17 @@
 
 一个优雅的校园新媒体平台导航网站，帮助学生快速找到并关注各个学院和部门的官方社交媒体账号。
 
-<img src="https://s21.ax1x.com/2025/02/19/pEQ9Acq.png" alt="预览图" width="300"/>
+## 📸 效果预览
+
+<div align="center">
+  <img src="docs/img/home.png" alt="首页展示" width="30%" />
+  <img src="docs/img/admin.png" alt="后台首页" width="30%" />
+  <img src="docs/img/add.png" alt="添加平台" width="30%" />
+</div>
+
+<p align="center">
+  <em>首页展示 · 后台首页 · 添加平台</em>
+</p>
 
 ## 功能特点
 
