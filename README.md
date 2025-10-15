@@ -5,9 +5,9 @@
 ## 📸 效果预览
 
 <div align="center">
-  <img src="docs/img/home.png" alt="首页展示" width="30%" />
-  <img src="docs/img/admin.png" alt="后台首页" width="30%" />
-  <img src="docs/img/add.png" alt="添加平台" width="30%" />
+  <img src="docs/img/home.png" alt="首页展示" height="300" style="margin: 0 10px;" />
+  <img src="docs/img/admin.png" alt="后台首页" height="300" style="margin: 0 10px;" />
+  <img src="docs/img/add.png" alt="添加平台" height="300" style="margin: 0 10px;" />
 </div>
 
 <p align="center">
