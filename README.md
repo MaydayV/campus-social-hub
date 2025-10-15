@@ -4,15 +4,20 @@
 
 ## 📸 效果预览
 
-<div align="center">
-  <img src="docs/img/home.png" alt="首页展示" height="300" style="margin: 0 10px;" />
-  <img src="docs/img/admin.png" alt="后台首页" height="300" style="margin: 0 10px;" />
-  <img src="docs/img/add.png" alt="添加平台" height="300" style="margin: 0 10px;" />
-</div>
-
-<p align="center">
-  <em>首页展示 · 后台首页 · 添加平台</em>
-</p>
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/img/home.png" alt="首页展示" width="100%" />
+      <p align="center"><em>首页展示</em></p>
+    </td>
+    <td width="50%">
+      <img src="docs/img/admin.png" alt="后台首页" width="100%" />
+      <p align="center"><em>后台首页</em></p>
+      <img src="docs/img/add.png" alt="添加平台" width="100%" style="margin-top: 10px;" />
+      <p align="center"><em>添加平台</em></p>
+    </td>
+  </tr>
+</table>
 
 ## 功能特点
 
